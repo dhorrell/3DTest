@@ -1,8 +1,13 @@
 package test;
 
-import java.awt.*;
-import java.awt.image.*;
-import javax.swing.*;
+import java.awt.Canvas;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
+
+import javax.swing.JFrame;
 
 public class Display extends Canvas implements Runnable{
 	
@@ -15,6 +20,9 @@ public class Display extends Canvas implements Runnable{
 	private int[] pixels;
 	private BufferedImage image;
 	private Thread thread;
+	
+	private BufferStrategy bs;
+	private Graphics g;
 	
 	private Game game;
 	private Screen screen;
@@ -106,13 +114,13 @@ public class Display extends Canvas implements Runnable{
 	
 	private void render()
 	{
-		BufferStrategy bs = this.getBufferStrategy();
+		bs = this.getBufferStrategy();
 		if (bs == null) {createBufferStrategy(3); return;}
 		
 		screen.render(game);
 		for (int i = 0; i < WIDTH * HEIGHT; i++) { pixels[i] = screen.pixels[i];}
 		
-		Graphics g = bs.getDrawGraphics();
+		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, null);
 		g.dispose();
 		bs.show();

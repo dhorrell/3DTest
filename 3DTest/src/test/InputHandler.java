@@ -6,6 +6,9 @@ public class InputHandler implements KeyListener, FocusListener{
 	
 	public boolean[] keys = new boolean[68836];
 	
+	private int pressCode = 0;
+	private int relCode = 0;
+	
 	public void focusGained(FocusEvent e){}
 	public void keyTyped(KeyEvent e) {}
 	
@@ -16,15 +19,15 @@ public class InputHandler implements KeyListener, FocusListener{
 	
 	public void keyPressed(KeyEvent e)
 	{
-		int keyCode = e.getKeyCode();
-		if (keyCode == KeyEvent.VK_ESCAPE) {System.exit(0);}
-		if (keyCode >= 0 && keyCode <= keys.length) {keys[keyCode] = true;}
+		pressCode = e.getKeyCode();
+		if (pressCode == KeyEvent.VK_ESCAPE) {System.exit(0);}
+		if (pressCode >= 0 && pressCode <= keys.length) {keys[pressCode] = true;}
 	}
 	
 	public void keyReleased(KeyEvent e)
 	{
-		int keyCode = e.getKeyCode();
-		if (keyCode >= 0 && keyCode <= keys.length) {keys[keyCode] = false;}
+		relCode = e.getKeyCode();
+		if (relCode >= 0 && relCode <= keys.length) {keys[relCode] = false;}
 	}
 	
 }
